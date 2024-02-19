@@ -1,0 +1,29 @@
+#wpcontent {
+	padding: 1rem 2rem;
+}
+
+form {
+    padding-block: 1rem;
+	
+	h2 {
+		margin: 0;
+	}
+
+    label:hover {
+        cursor: auto;
+    }
+    
+    button {
+        padding: 0.25rem 0.5rem;
+        background: #2271b1;
+        color: #fff;
+        border: 2px solid #2271b1;
+        border-radius: 3px;
+    }
+    
+    button:hover {
+        cursor: pointer;
+		background: #135e96;
+		border: 2px solid #135e96;
+    }
+}
