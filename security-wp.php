@@ -2,7 +2,7 @@
 /*
 Plugin Name: Security WP
 Description: Add some options to improve your security on Wordpress.
-Version: 1.0
+Version: 1.0.1
 Author: Damián Caamaño
 Author URI: https://www.linkedin.com/in/dami%C3%A1n-caama%C3%B1o-pazos-a543a71b3/
 */
@@ -57,7 +57,7 @@ function renderizar_plugin() {
     $tiempo_desconexion = get_option('tiempo_desconexion'); ?>
     <head>
         <!-- Enlaza tu archivo CSS -->
-        <link rel="stylesheet" type="text/css" href="<?php echo plugins_url( './assets/styles.css', __FILE__ ); ?>">
+        <link rel="stylesheet" type="text/css" href="<?php echo esc_url( plugins_url( './assets/styles.css', __FILE__ ) ); ?>">
     </head>
 
     <h1>Configuration</h1>
@@ -66,7 +66,7 @@ function renderizar_plugin() {
     <form id="formulario" method="post">
         <h2>Change WordPress login URL</h2>
         <br>
-        <label><?php echo $_SERVER['HTTP_HOST']; ?>/</label>
+        <label><?php echo esc_html( $_SERVER['HTTP_HOST'] ); ?>/</label>
         <input type="text" id="url-acceso" name="url-acceso" value="<?php echo esc_attr($texto); ?>">
         <br><br>
         <h2>Block XML-RPC</h2>
