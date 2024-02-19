@@ -124,7 +124,7 @@ function url_acceso() {
     $texto = get_option('texto_url_acceso');
 
     // Verifica si la URL solicitada coincide con la URL personalizada de acceso **QUITAR EL /WP-DAMIAN/ CUANDO SE VAYA A UTILIZAR EN PÁGINAS FINALES**
-    if ( isset( $_SERVER['REQUEST_URI'] ) && '/wp-damian/' . $texto === $_SERVER['REQUEST_URI'] ) {
+    if ( isset( $_SERVER['REQUEST_URI'] ) && '/' . $texto === $_SERVER['REQUEST_URI'] ) {
         // Requiere el archivo de inicio de sesión de WordPress
         require_once ABSPATH . 'wp-login.php';
         // Sal del script para evitar redireccionamientos
@@ -135,7 +135,7 @@ function url_acceso() {
 add_action( 'template_redirect', 'url_acceso' );
 
 //Función que anula wp-admin y wp-login.php y redirige a la home
-/* function evitar_entrada() {
+function evitar_entrada() {
     // Recuperar el valor de la opción de WordPress
     $texto = get_option('texto_url_acceso');
 
@@ -145,7 +145,7 @@ add_action( 'template_redirect', 'url_acceso' );
     }
 }
 
-add_action('login_head', 'evitar_entrada'); */
+add_action('login_head', 'evitar_entrada');
 
 //Función para bloquear el acceso a xmlrpc.php
 function bloquear_xmlrpc() {
@@ -153,7 +153,7 @@ function bloquear_xmlrpc() {
     $xmlrpc_blocked = get_option('xmlrpc_blocked');
     
     // Verifica si la URL solicitada coincide con xmlrpc.php **QUITAR EL /WP-DAMIAN/ CUANDO SE VAYA A USAR EN OTRAS PÁGINAS**
-    if ($xmlrpc_blocked && strpos($_SERVER['REQUEST_URI'], '/wp-damian/xmlrpc.php') !== false) {
+    if ($xmlrpc_blocked && strpos($_SERVER['REQUEST_URI'], '/xmlrpc.php') !== false) {
         // Envía el encabezado de respuesta 403 - Acceso prohibido
         http_response_code(403);
         // Muestra un mensaje de error
@@ -185,46 +185,3 @@ function expulsar_usuario($expiry, $user_id, $remember) {
 }
 
 add_filter('auth_cookie_expiration', 'expulsar_usuario', 10, 3);
-
-/* // Función para contar los intentos fallidos de inicio de sesión y redirigir si se supera el límite
-function redirect_after_failed_login($username) {
-    if (isset($_COOKIE['failed_login_attempts'])) {
-        $attempts = intval($_COOKIE['failed_login_attempts']);
-    } else {
-        $attempts = 0;
-    }
-
-    $max_attempts = 3; // Cambia esto al número máximo de intentos permitidos
-
-    if ($attempts >= $max_attempts) {
-        // Redirigir al usuario después de alcanzar el límite de intentos fallidos
-        wp_redirect('https://wordpress.org/');
-        exit;
-    } else {
-        // Incrementar el contador de intentos fallidos
-        $attempts++;
-        setcookie('failed_login_attempts', $attempts, time() + 3600, '/'); // Establecer la cookie durante 1 hora
-    }
-}
-
-add_action('wp_login_failed', 'redirect_after_failed_login');
-
-// Función para personalizar el mensaje de error de inicio de sesión
-function custom_login_error_message($error) {
-    if (isset($_COOKIE['failed_login_attempts'])) {
-        $attempts = intval($_COOKIE['failed_login_attempts']);
-    } else {
-        $attempts = 0;
-    }
-    
-    $max_attempts = 3; // Cambia esto al número máximo de intentos permitidos
-
-    if ($attempts > 0 && $attempts < $max_attempts) {
-        $remaining_attempts = $max_attempts - $attempts;
-        $error = sprintf(__('¡Error! Te quedan %d intentos antes de ser redirigido.', 'text-domain'), $remaining_attempts);
-    }
-    
-    return $error;
-}
-
-add_filter('login_errors', 'custom_login_error_message'); */
