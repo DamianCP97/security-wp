@@ -4,7 +4,7 @@ Donate link: https://www.linkedin.com/in/dami%C3%A1n-caama%C3%B1o-pazos-a543a71b
 Tags: security, login security
 Requires at least: 4.0
 Tested up to: 4.8
-Stable tag: 1.0
+Stable tag: 1.0.2
 Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -40,6 +40,10 @@ Yes, it is a free plugin.
 = v1.0.1 =
 
 * Fix some security problems
+
+= v1.0.1 =
+
+* Resolve some problems
 
 == Upgrade Notice ==
 

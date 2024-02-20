@@ -2,7 +2,7 @@
 /*
 Plugin Name: Security WP
 Description: Add some options to improve your security on Wordpress.
-Version: 1.0.1
+Version: 1.0.2
 Author: Damián Caamaño
 Author URI: https://www.linkedin.com/in/dami%C3%A1n-caama%C3%B1o-pazos-a543a71b3/
 */
@@ -25,11 +25,19 @@ add_action('admin_menu', 'agregar_menu');
 function renderizar_plugin() { 
     // Verificar si se ha enviado el formulario
     if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        // Obtener y guardar el valor del campo de texto en una opción de WordPress
-        if (isset($_POST["url-acceso"])) {
-            $texto = $_POST["url-acceso"];
-            update_option('texto_url_acceso', $texto);
-        }
+		// Verificar nonce
+		if ( ! isset( $_POST['nombre_nonce'] ) || ! wp_verify_nonce( $_POST['nombre_nonce'], 'actualizar_opciones' ) ) {
+			// Nonce no válido, hacer algo como mostrar un mensaje de error o redirigir
+			echo 'Nonce no válido';
+			exit;
+		}
+		
+		// Si el nonce es válido, procesar los datos del formulario y actualizar las opciones de WordPress
+		// Obtener y guardar el valor del campo de texto en una opción de WordPress
+		if (isset($_POST["url-acceso"])) {
+			$texto = $_POST["url-acceso"];
+			update_option('texto_url_acceso', $texto);
+		}
 
         // Obtener y guardar el valor del campo de tiempo de desconexión en una opción de WordPress
         if (isset($_POST["tiempo-desconexion"])) {
@@ -80,6 +88,7 @@ function renderizar_plugin() {
         <label>Time (in seconds). The user will have to reconnect once this time has passed</label>
         <input type="number" id="tiempo-desconexion" name="tiempo-desconexion" value="<?php echo esc_attr($tiempo_desconexion); ?>">
         <br><br>
+		<?php wp_nonce_field( 'actualizar_opciones', 'nombre_nonce' ); ?>
         <button type="submit">Save changes</button>
     </form>
 
