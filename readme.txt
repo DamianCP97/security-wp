@@ -41,7 +41,7 @@ Yes, it is a free plugin.
 
 * Fix some security problems
 
-= v1.0.1 =
+= v1.0.2 =
 
 * Resolve some problems
 
