@@ -3,7 +3,7 @@ Contributors: damiancp
 Donate link: https://www.linkedin.com/in/dami%C3%A1n-caama%C3%B1o-pazos-a543a71b3/
 Tags: security, login security
 Requires at least: 4.0
-Tested up to: 4.8
+Tested up to: 6.5
 Stable tag: 1.0.2
 Requires PHP: 7.0
 License: GPLv2 or later
